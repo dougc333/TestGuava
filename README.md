@@ -1,3 +1,3 @@
-TestOption like the scala Option class. Use option to not return null back to client to prevent NPEs for production code. 
-
+Preconditions: checks to see if argument is not null. If null; prevents NPE
+Options: use in place of objects where you get a null. One place is null value return from hashmap get(). Option builtin to Scala
 
