@@ -1,4 +1,5 @@
 import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ComparisonChain;
 
 
@@ -9,10 +10,10 @@ public class ObjectsCaseClass implements Comparable{
    private String name;
    private int age;
    
-    
+   //enforces nonnull attributes
    public ObjectsCaseClass(String n, int age){
-	   this.name=n;
-	   this.age = age;
+	   this.name=Preconditions.checkNotNull(n);
+	   this.age = Preconditions.checkNotNull(age);
    }
    
    public String getName() {
@@ -25,15 +26,17 @@ public class ObjectsCaseClass implements Comparable{
    @Override
    public String toString(){
 	   return Objects.toStringHelper(getClass())
-		  .add("name",name)
-		  .add("age",age)
+		  .add("name",Preconditions.checkNotNull(name))
+		  .add("age",Preconditions.checkNotNull(age))
 		  .toString();
    }
    
    
+   //chain methods, only for this pattern. less if/else statements for branching. 
+   //null? 
    @Override
    public int compareTo(Object that) {
-   	return ComparisonChain.start().compare(this.getName(), ((ObjectsCaseClass)that).getName()).result();
+   	return ComparisonChain.start().compare(this.getName(), ((ObjectsCaseClass)that).getName()).compare(this.getAge(),((ObjectsCaseClass)that).getAge()).result();
    }
    
    
